@@ -1,0 +1,234 @@
+{
+  "info": {
+    "_postman_id": "my-own-cms-collection",
+    "name": "My Own CMS - API Documentation",
+    "description": "Complete API documentation for My Own CMS application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"securepassword123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["auth", "register"]
+            },
+            "description": "Create a new admin user account"
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"securepassword123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["auth", "login"]
+            },
+            "description": "Login with email and password. Returns JWT token"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "description": "JWT token from login response"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/auth/me",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["auth", "me"]
+            },
+            "description": "Get current authenticated user info (requires JWT)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "item": [
+        {
+          "name": "Create Project",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "description": "JWT token from login response"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"My Awesome Project\",\n  \"category\": \"Web Design\",\n  \"image\": \"https://example.com/image.jpg\",\n  \"year\": \"2024\",\n  \"description\": \"A brief description of the project\",\n  \"client\": \"Acme Corp\",\n  \"software\": [\"Figma\", \"Adobe XD\", \"Photoshop\"],\n  \"longDescription\": \"A detailed description of the project including all aspects\",\n  \"additionalImages\": [\n    \"https://example.com/image2.jpg\",\n    \"https://example.com/image3.jpg\"\n  ],\n  \"process\": \"Detailed explanation of the design process and approach\",\n  \"videoUrl\": \"https://youtube.com/watch?v=video\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/projects",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["projects"]
+            },
+            "description": "Create a new project (requires JWT authentication)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Projects",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/projects",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["projects"]
+            },
+            "description": "Retrieve all projects (public endpoint)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Project by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/projects/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["projects", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "65a1b2c3d4e5f6g7h8i9j0",
+                  "description": "MongoDB project ID"
+                }
+              ]
+            },
+            "description": "Retrieve a specific project by ID (public endpoint)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Project",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "description": "JWT token from login response"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Project Title\",\n  \"description\": \"Updated description\",\n  \"year\": \"2025\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/projects/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["projects", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "65a1b2c3d4e5f6g7h8i9j0",
+                  "description": "MongoDB project ID"
+                }
+              ]
+            },
+            "description": "Update an existing project (requires JWT authentication)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Project",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "description": "JWT token from login response"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/projects/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["projects", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "65a1b2c3d4e5f6g7h8i9j0",
+                  "description": "MongoDB project ID"
+                }
+              ]
+            },
+            "description": "Delete a project (requires JWT authentication)"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "jwt_token",
+      "value": "",
+      "description": "JWT token obtained from login. Set this variable after successful login."
+    }
+  ]
+}
