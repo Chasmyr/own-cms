@@ -7,7 +7,11 @@ import projectRoutes from './routes/project.routes';
 
 const app = fastify({ logger: true });
 
-app.register(cors, { origin: '*' });
+app.register(cors, { 
+  origin: '*',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']
+});
 app.register(fastifyJwt, { secret: process.env.JWT_SECRET! });
 app.register(authRoutes, { prefix: '/auth' });
 app.register(projectRoutes, { prefix: '/projects' });
